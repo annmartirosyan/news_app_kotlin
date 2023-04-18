@@ -19,6 +19,7 @@ import com.androiddevs.mvvmnewsapp.util.Constants.Companion.QUERY_PAGE_SIZE
 import com.androiddevs.mvvmnewsapp.util.Resource
 import kotlinx.android.synthetic.main.fragment_breaking_news.*
 import kotlinx.android.synthetic.main.fragment_breaking_news.paginationProgressBar
+import kotlinx.android.synthetic.main.fragment_search_news.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
