@@ -57,8 +57,11 @@ class NewsViewModel(
     private fun handleSearchNewsResponse(response: Response<NewsResponse>) : Resource<NewsResponse> {
         if(response.isSuccessful){
             response.body()?.let { resultResponse ->
-                if (searchNewsPage < 6) {
-                    searchNewsPage++
+//                if (searchNewsPage < 6) {
+//                    searchNewsPage++
+//                }
+                if (breakingNewsPage < 6) {
+                    breakingNewsPage++
                 }
                     searchNewsResponse = resultResponse
                 return Resource.Success(searchNewsResponse ?: resultResponse)
