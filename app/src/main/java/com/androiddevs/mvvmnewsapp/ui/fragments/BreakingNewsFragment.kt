@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AbsListView
+import android.widget.Button
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -46,14 +47,25 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
             )
         }
 
+        val removeButton = view.findViewById<Button>(R.id.remove_button)
+        removeButton.visibility = View.GONE
+
+        removeButton.setOnClickListener {
+            Search.text.clear()
+            removeButton.visibility = View.GONE
+        }
+
         var job: Job? = null //coroutine job
-        Search.addTextChangedListener{ editable ->
+        Search.addTextChangedListener { editable ->
             job?.cancel()
             job = MainScope().launch {
                 delay(Constants.SEARCH_NEWS_TIME_DELAY)
-                editable?.let{
-                    if(editable.toString().isNotEmpty()){
+                editable?.let {
+                    if (editable.toString().isNotEmpty()) {
                         viewModel.searchNews(editable.toString())
+                        removeButton.visibility = View.VISIBLE
+                    } else {
+                        removeButton.visibility = View.GONE
                     }
                 }
             }

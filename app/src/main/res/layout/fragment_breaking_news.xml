@@ -7,13 +7,24 @@
 
     <EditText
         android:id="@+id/Search"
-        android:layout_width="match_parent"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:hint="@string/search"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/remove_button"
+        android:layout_width="90dp"
+        android:layout_height="43dp"
+        app:layout_constraintStart_toEndOf="@+id/Search"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:text="@string/remove"
+        android:visibility="gone"
+        tools:ignore="MissingConstraints" />
 
 
     <androidx.recyclerview.widget.RecyclerView
