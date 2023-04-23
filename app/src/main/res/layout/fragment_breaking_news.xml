@@ -7,35 +7,50 @@
 
     <EditText
         android:id="@+id/Search"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
+        android:layout_width="136dp"
+        android:layout_height="45dp"
         android:layout_marginTop="4dp"
         android:hint="@string/search"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
+
     <Button
         android:id="@+id/remove_button"
         android:layout_width="90dp"
-        android:layout_height="43dp"
-        app:layout_constraintStart_toEndOf="@+id/Search"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="45dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
+        android:layout_marginEnd="160dp"
+
         android:text="@string/remove"
         android:visibility="gone"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="4dp" />
 
+    <Button
+        android:id="@+id/filter_button"
+        android:layout_width="90dp"
+        android:layout_height="45dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="52dp"
+        android:text="Filter"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="4dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvBreakingNews"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingBottom="50dp"
         android:clipToPadding="false"
+        android:paddingBottom="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Search"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="-63dp" />
 
     <ProgressBar
         android:id="@+id/paginationProgressBar"

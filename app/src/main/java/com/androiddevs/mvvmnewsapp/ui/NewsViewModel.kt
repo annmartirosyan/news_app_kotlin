@@ -35,6 +35,12 @@ class NewsViewModel(
         val response = newsRepository.searchNews(searchQuery, searchNewsPage)
         breakingNews.postValue(handleSearchNewsResponse(response))
     }
+
+    fun filterNews(countryCode: String, filterQuery: String) = viewModelScope.launch {
+        breakingNews.postValue(Resource.Loading())
+        val response = newsRepository.filterNews(countryCode, filterQuery)
+        breakingNews.postValue(handleFilteredNewsResponse(response))
+    }
     private fun handleBreakingNewsResponse(response: Response<NewsResponse>) : Resource<NewsResponse> {
         if(response.isSuccessful){
             response.body()?.let { resultResponse ->
@@ -54,12 +60,24 @@ class NewsViewModel(
         return Resource.Error(response.message())
     }
 
+    private fun handleFilteredNewsResponse(response: Response<NewsResponse>) : Resource<NewsResponse> {
+        if(response.isSuccessful){
+            response.body()?.let { resultResponse ->
+
+                if (breakingNewsPage < 6) {
+                    breakingNewsPage++
+                }
+                searchNewsResponse = resultResponse
+                return Resource.Success(searchNewsResponse ?: resultResponse)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
     private fun handleSearchNewsResponse(response: Response<NewsResponse>) : Resource<NewsResponse> {
         if(response.isSuccessful){
             response.body()?.let { resultResponse ->
-//                if (searchNewsPage < 6) {
-//                    searchNewsPage++
-//                }
+
                 if (breakingNewsPage < 6) {
                     breakingNewsPage++
                 }

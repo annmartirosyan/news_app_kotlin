@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_business"
+        android:title="Business" />
+    <item
+        android:id="@+id/menu_entertainment"
+        android:title="Entertainment" />
+    <item
+        android:id="@+id/menu_general"
+        android:title="General" />
+    <item
+        android:id="@+id/menu_health"
+        android:title="Health" />
+</menu>

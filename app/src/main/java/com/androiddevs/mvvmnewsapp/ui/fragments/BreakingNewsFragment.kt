@@ -1,10 +1,13 @@
 package com.androiddevs.mvvmnewsapp.ui.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AbsListView
 import android.widget.Button
+import android.widget.PopupMenu
+import android.widget.RadioGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -18,6 +21,7 @@ import com.androiddevs.mvvmnewsapp.ui.NewsViewModel
 import com.androiddevs.mvvmnewsapp.util.Constants
 import com.androiddevs.mvvmnewsapp.util.Constants.Companion.QUERY_PAGE_SIZE
 import com.androiddevs.mvvmnewsapp.util.Resource
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.fragment_breaking_news.*
 import kotlinx.android.synthetic.main.fragment_breaking_news.paginationProgressBar
 import kotlinx.coroutines.Job
@@ -46,6 +50,37 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
                 bundle
             )
         }
+
+        val filterButton = view.findViewById<Button>(R.id.filter_button)
+        fun showFilterMenu() {
+            val popupMenu = PopupMenu(requireContext(), filterButton)
+            popupMenu.menuInflater.inflate(R.menu.filter_menu, popupMenu.menu)
+            popupMenu.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.menu_business -> {
+                        viewModel.filterNews("us", "business")
+                        true
+                    }
+                    R.id.menu_entertainment -> {
+                        viewModel.filterNews("us", "entertainment")
+                        true
+                    }
+                    R.id.menu_general -> {
+                        viewModel.filterNews("us", "general")
+                        true
+                    }
+                    R.id.menu_health -> {
+                        viewModel.filterNews("us", "health")
+                        true
+                    }
+                    else -> false
+                }
+            }
+            popupMenu.show()
+        }
+        filterButton.setOnClickListener { showFilterMenu() }
+
+
 
         val removeButton = view.findViewById<Button>(R.id.remove_button)
         removeButton.visibility = View.GONE
@@ -99,6 +134,8 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
 
             }
         })
+
+
     }
 
     private fun hideProgressBar() {
