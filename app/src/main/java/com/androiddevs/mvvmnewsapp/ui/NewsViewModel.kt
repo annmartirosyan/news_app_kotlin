@@ -5,14 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.androiddevs.mvvmnewsapp.models.Article
 import com.androiddevs.mvvmnewsapp.models.NewsResponse
+import com.androiddevs.mvvmnewsapp.models.Source
 import com.androiddevs.mvvmnewsapp.repository.NewsRepository
 import com.androiddevs.mvvmnewsapp.util.Resource
+import com.google.gson.annotations.SerializedName
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class NewsViewModel(
-    val newsRepository : NewsRepository
-): ViewModel() {
+class NewsViewModel(val newsRepository : NewsRepository): ViewModel() {
 
     val breakingNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
     var breakingNewsPage = 1
@@ -82,6 +82,23 @@ class NewsViewModel(
                     breakingNewsPage++
                 }
                     searchNewsResponse = resultResponse
+                if (resultResponse.articles.isEmpty()) {
+                    val source = Source(
+                        id = "",
+                        name = ""
+                    )
+                    val article = Article(
+                        author = "",
+                        content = "",
+                        description = "No results found. Please check your spelling and try again((",
+                        publishedAt = "",
+                        source = source,
+                        title = "No Articles Found",
+                        url = "",
+                        urlToImage = "https://cdn-icons-png.flaticon.com/512/6134/6134065.png"
+                    )
+                    resultResponse.articles.add(0,article)
+                }
                 return Resource.Success(searchNewsResponse ?: resultResponse)
             }
         }
